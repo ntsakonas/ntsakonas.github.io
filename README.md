@@ -71,37 +71,13 @@ public class Main {
 ```
 
 and also assembly
-```x86asm
+```asm
         LD A,#20
 LOOP:   ADD 3
         JMP LOOP
-80 20   MOV BC,HL
+80 20   MOV BC,[HL+3]
 9F 32   ADD BC,32
 90      NOP
-```
-
-
-
-```armasm
-        LD A,#20
-LOOP:   ADD 3
-        JMP LOOP
-80 20   MOV BC,HL
-9F 32   ADD BC,32
-90      NOP
-```
-
-```arduino
-        LD A,#20
-LOOP:   ADD 3
-        JMP LOOP
-80 20   MOV BC,HL
-9F 32   ADD BC,32
-90      NOP
-
-void method(){
-    analogRead(2)
-}
 ```
 
 
