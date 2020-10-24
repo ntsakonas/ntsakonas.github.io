@@ -89,6 +89,6 @@ LOOP:   ADD 3
 
 
 and also images
-![Image](images/sample.svg)
+![]({{ site.url }}/images/sample.svg)
 
 we have everything!
