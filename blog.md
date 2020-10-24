@@ -2,13 +2,13 @@
 layout: default
 title: Blog
 ---
+<h2>Latest Posts</h2>
 
-# Latest Posts
-
+<ul>
   {% for post in site.posts %}
-
-      ## [{{ post.title }}]({{ post.url }})
-     
-      {{ page.date | date: "%b %-d, %Y" }}
+    <li>
+      <h2><a href="{{ post.url }}">{{ post.title }} <i>{{ page.date | date: "%b %-d, %Y" }}</i></a></h2>
       {{ post.excerpt }}
+    </li>
   {% endfor %}
+</ul>
