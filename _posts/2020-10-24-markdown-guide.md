@@ -1,3 +1,8 @@
+---
+layout: post
+author: Nick
+date: 2020-10-24 17:28:00 -0000
+---
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/ntsakonas/ntsakonas.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
