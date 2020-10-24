@@ -71,7 +71,7 @@ public class Main {
 ```
 
 and also assembly
-```assembly
+```x86asm
         LD A,#20
 LOOP:   ADD 3
         JMP LOOP
@@ -80,9 +80,9 @@ LOOP:   ADD 3
 90      NOP
 ```
 
-(plain assembly)
 
-```
+
+```armasm
         LD A,#20
 LOOP:   ADD 3
         JMP LOOP
@@ -90,6 +90,20 @@ LOOP:   ADD 3
 9F 32   ADD BC,32
 90      NOP
 ```
+
+```arduino
+        LD A,#20
+LOOP:   ADD 3
+        JMP LOOP
+80 20   MOV BC,HL
+9F 32   ADD BC,32
+90      NOP
+
+void method(){
+    analogRead(2)
+}
+```
+
 
 
 and also images
