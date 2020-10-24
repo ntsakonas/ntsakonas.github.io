@@ -5,9 +5,6 @@ title: Home
 <h2>Latest Post</h2>
 
 {% for post in site.posts limit:1 %}
-	{{ post.title }}
-	{{ post.date | date: "%b %-d, %Y" }}
-
 	{{ post.content }}
 {% endfor %}
 
