@@ -52,5 +52,47 @@ public class Main {
 }    
 
 ```
-and here is an image
+
+and also without specific language 
+
+```
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World v1.0");
+    }
+}    
+
+```
+
+and also assembly
+```assembly
+        LD A,#20
+LOOP:   ADD 3
+        JMP LOOP
+80 20   MOV BC,HL
+9F 32   ADD BC,32
+90      NOP
+```
+
+(plain assembly)
+
+```
+        LD A,#20
+LOOP:   ADD 3
+        JMP LOOP
+80 20   MOV BC,HL
+9F 32   ADD BC,32
+90      NOP
+```
+
+
+and also images
 ![Image](images/sample.svg)
+
+we have everything!
