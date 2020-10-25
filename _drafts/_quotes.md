@@ -1,0 +1,2 @@
+
+_“Because it is a hobby we don’t have to do it - or mean anything - or fit into the world plan. As long as you can do one useless thing a day - life still has some meaning and that is the essence and the joy of life”_ - George Dobbs G3RJV (SK)
