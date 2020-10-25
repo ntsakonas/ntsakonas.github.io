@@ -16,4 +16,4 @@ Ideas range from validating various thoughts and exploring new areas, to improvi
 
 For that reason, there is absolutely no logic in how I pick the next thing to work on!
 
-_"Vanity is the most terrible, the most blocking thing for an interpreter.If you are sure that what you have to say is unique, then you are not out to please or not to please...or to impress or not to impress...you have your message and that's it...if they like it it's allright, if they don't...."_ - Claudio Arrau 
+_"If you are sure that what you have to say is unique, then you are not out to please or not to please...or to impress or not to impress...you have your message and that's it...if they like it it's allright, if they don't...."_ - Claudio Arrau 
