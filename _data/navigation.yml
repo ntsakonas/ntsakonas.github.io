@@ -1,8 +1,8 @@
-- name: [Home]
+- name: Home
   link: /index.html
-- name: [Posts]
+- name: Posts
   link: /blog/index.html
-- name: [About]
+- name: About
   link: /about.html
-- name: [Disclaimer]
+- name: Disclaimer
   link: /disclaimer.html
