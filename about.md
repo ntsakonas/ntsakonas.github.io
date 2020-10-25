@@ -2,7 +2,7 @@
 layout: default
 title: About
 ---
-# About page
+# About me and this blog
 
 I am a Java software engineer and in my free time , among others, I write software for leisure, recreation, self-education and fun!
 
