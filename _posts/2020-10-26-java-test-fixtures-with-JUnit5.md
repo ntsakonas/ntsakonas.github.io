@@ -17,7 +17,7 @@ the appropriate behaviour. When the mock setup exceeded 3-4 lines, it was usuall
 and when that was becoming too big, it was extracted in utility classes etc. 
 
 The Android team at my current employer is now mostly using Kotlin and they are using test fixtures, which are instantiated on demand at the point of usage. Test fixtures implement very basic behaviour of the mocked objects.
-The backend team, where Python is used, test fixtures are heavily used too. 
+In the backend team, where Python is used, test fixtures are heavily used too. 
 
 The differences between languages, have a huge impact on how the fixtures are introduced in a test, but looking at both worlds, and peeking into one specific feature of JUnit5 made me think whether I could make test fixtures I can use in Java tests, but in a similar way Python is doing it.
 
@@ -106,7 +106,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 class RecordChainerTest {
 
     @Test
-    public void verifyFixtureInjection() {
+    public void testRecordChainer() {
 
         stationSignerMock = Mockito.mock(BlockSigner.class);
         Mockito.when(stationSignerMock.signDataBlock(anyString())).thenReturn("signature");
@@ -114,7 +114,7 @@ class RecordChainerTest {
         String recordSignature = chainer.chainRecord("previous_block", "next_block");
         assertThat(recordSignature).isEqualTo("signature");
 
-		// Just verify that the signer was called
+        // Just verify that the signer was called
         Mockito.verify(stationSignerMock, Mockito.times(1)).signDataBlock(anyString());
         // OR
         // Verify that the signer was called with the correct message structure
@@ -156,12 +156,12 @@ class RecordChainerTest {
     }
 
     @Test
-    void verifyFixtureInjection() {
+    void testRecordChainer() {
 
         String recordSignature = chainer.chainRecord("previous_block", "next_block");
         assertThat(recordSignature).isEqualTo("signature");
 
-		// Just verify that the signer was called
+        // Just verify that the signer was called
         Mockito.verify(stationSignerMock, Mockito.times(1)).signDataBlock(anyString());
         // OR
         // Verify that the signer was called with the correct message structure
@@ -170,7 +170,7 @@ class RecordChainerTest {
     
 ``` 
 
-still, pretty good test. My personal disagreement in this style is that the test initialisation phase is very disjoint from the test, and it can be re-used by other tests. That means that at a given time _T0_, if _N_ tests
+still, pretty good test. My personal disagreement on this style is that the test initialisation phase is very disjoint from the test, and it can be re-used by other tests. That means that at a given time _T0_, if _N_ tests
 are using the same setup, the developers may assume that all tests require and depend on the same mock behaviour.
 The setup is giving the impression that all test require that.
 
@@ -183,8 +183,8 @@ But JUnit5 makes it a bit better...
 
 ### Testing, take 3 - the JUnit5 way
 
-JUnit5 provides the `ParameterResolver` interface that allows to "resolve parameters at run time". 
-I was intrigued by that so I worked around that, trying to implement a minimum set of classes that could support
+JUnit5 provides the `ParameterResolver` interface that allows to _"resolve parameters at run time"_. 
+I was intrigued by that so I worked around it, trying to implement a minimum set of classes that could support
 this style of testing
 
 
@@ -214,7 +214,7 @@ class RecordChainerRefImplTest {
 In this test, we rely on the framework to provide us with an instance of a `BlockSigner` which is expected to 
 be a mock, so that we can further configure it, _but_ is injected already configured with a specific behaviour.
 
-Let's try a basic approach to implement the extension
+Let's try this approach to implement the extension
 
 ```java
 
@@ -238,7 +238,7 @@ public abstract class BaseFixture<T> implements ParameterResolver {
 ```
 
 This class will allow to create a subclass that provides instances of `<T>` when required.
-the `supportsParameter()` is a very interesting, as it is used at runtime to determine if this resolver 
+the `supportsParameter()` method is a very interesting, as it is used at runtime to determine if this resolver 
 supports the resolution of an argument of type `<T>` in the test execution context.
 
 That means,that if we had a subclass 
@@ -251,25 +251,25 @@ public class BlockSignerFixture extends BaseFixture<BlockSigner> {
 then in the following test, `supportsParameter()` must return `true`
 
 ```java
- 	@ExtendWith(BlockSignerFixture.class)
-    @Test
-    void verifyFixtureInjection(BlockSigner stationSigner) {
-    }
+ @ExtendWith(BlockSignerFixture.class)
+ @Test
+ void verifyFixtureInjection(BlockSigner stationSigner) {
+ }
 ```	
 
 but if it was misused like in the following test, `supportsParameter()` must return `false`
 
 ```java
- 	@ExtendWith(BlockSignerFixture.class)
-    @Test
-    void verifyFixtureInjection(Random Random) {
-    }
+ @ExtendWith(BlockSignerFixture.class)
+ @Test
+ void verifyFixtureInjection(Random Random) {
+ }
 ```	
 
-the `abstract protected Class<T> getTargetType();` was added exactly for that, so that the subclass can 
+the `abstract protected Class<T> getTargetType();` was added exactly for that purpose, so that the subclass can 
 indicate the provided type.
 
-Having that in mind, let implement the test fixture for the `BlockSigner`
+Having that in mind, let's implement the test fixture for the `BlockSigner`
 
 ```java
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -381,11 +381,11 @@ This approach has reall worked fine but we need to be aware of the overhead it c
 
 for example, in the following test
 ```java
-    @ExtendWith(BlockSignerFixture.class)
-    @ExtendWith(BlockEncryptorFixture.class)
-    @Test
-    void verifyFixtureInjection(BlockSigner stationSignerMock, BlockEncryptor blockEncryptorMock) {
-    }
+@ExtendWith(BlockSignerFixture.class)
+@ExtendWith(BlockEncryptorFixture.class)
+@Test
+void verifyFixtureInjection(BlockSigner stationSignerMock, BlockEncryptor blockEncryptorMock) {
+}
 ```
 
 in order for `stationSignerMock` parameter to receive the injection, the extensions (`BlockSignerFixture` and `BlockEncryptorFixture`) must be queried in order, until one of them returns `true` from its `supportsParameter()` method, which in turn the JUnit5 extension model will use to get the fixture instance.
@@ -410,8 +410,8 @@ Getting comfortable with your frameworks and libraries may result in using a sma
 In the case of JUnit5, the extension model gives a huge opportunity to make reusable test fixtures and
 reduce the noise of test setup on every test. 
 
-Rating of this task
--------------------
-Challenge: 7/10
-Satisfaction :9/10
-Funtime: 10/10
+## Rating of this task
+
+- Challenge: 7/10
+- Satisfaction :9/10
+- Funtime: 10/10
