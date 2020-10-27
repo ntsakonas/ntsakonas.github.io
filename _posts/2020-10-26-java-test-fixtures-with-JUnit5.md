@@ -36,7 +36,7 @@ Very late in the JUnit5 documentation, under [Parameter Resolution](https://juni
 
 _ParameterResolver defines the Extension API for dynamically resolving parameters at runtime._
 
-A very `uninsteresting` part that I had skipped more than once. (note:as I write this, I noticed with an extra reading
+A very _uninsteresting_ part that I had skipped more than once. (note:as I write this, I noticed with an extra reading
 another piece of info that I had not noticed, more on that later).
 
 After a few explorations in the documentation, I was wrapping my head around this example
@@ -165,7 +165,7 @@ class RecordChainerTest {
     }
 ``` 
 
-still, pretty good test. My personal disagreement on this style is that the test initialisation phase is very disjoint from the test, and it can be re-used by other tests. That means that at a given time _T0_, if _N_ tests
+still, pretty good test. My personal disagreement on this style is that the test initialisation phase is very disjoint from the test, and it can be re-used by other tests. That means that at a given time _T_, if _N_ tests
 are using the same setup, the developers may assume that all tests require and depend on the same mock behaviour.
 The setup is giving the impression that all test require that.
 
@@ -291,7 +291,7 @@ public class BlockSignerFixture extends BaseFixture<BlockSigner> {
 }
 ```
 
-`BlockSignerFixture` is a fixture tht provides preconfigured instances of `BlockSigner` to the test methods.
+`BlockSignerFixture` is a fixture tht provides pre-configured instances of `BlockSigner` to the test methods.
 The test methods can of course further mock the injected instance.By doign so, it will not interfere with other
 instances of the fixture.
 
@@ -308,13 +308,14 @@ A side-effect of reading 3rd pary code is that some patterns are repeated and yo
 is probably the right way to do it. For this step, I took the path of thinking ways that this can be achieved
 without reading other's code. 
 
-I was really fixated about the fact that in `class BaseFixture<T> `, the _type_ of `T` is available at compile time, but we need the equivalent of `T.getClass()` at runtime. I was typing and deleting some weird code to try to get
-`.getClass()` of `T` with compile time safety. I was not getting at it, until I realised that at runtime, the type of `T` will be known, but is there a way to get that given that I am not going to have an instance of that type around?
+I was really fixated on the fact that in `class BaseFixture<T> `, the _type_ of `T` is available at compile time, but we need the equivalent of `T.getClass()` at runtime. I was typing and deleting some weird code to try to get
+`.getClass()` of `T` with compile time safety, but as I was not going to have an instance of the provided type around, 
+I was not getting at it, until I realised that at runtime, the type of `T` must be known, so I need to find a way to get that!
 
-Fiddling around with reflective methods and a bit of debugging, gave me the result, which honestly, I did not know it was possible!
+Fiddling around with reflective methods and a bit of debugging, gave me the result, which honestly, I did not know it was possible at all!
 
 Here is the revisited code, starting with the `BlockSignerFixture` class which does not have to implement 
-the `Class<BlockSigner> getTargetType()` method anymore. It only has to care about providing a proconfigured
+the `Class<BlockSigner> getTargetType()` method anymore. It only has to care about providing a pre-configured
 mock of the requested type.
 
 ```java
@@ -382,9 +383,9 @@ void verifyFixtureInjection(BlockSigner stationSignerMock, BlockEncryptor blockE
 }
 ```
 
-in order for `stationSignerMock` parameter to receive the injection, the extensions (`BlockSignerFixture` and `BlockEncryptorFixture`) must be queried in order, until one of them returns `true` from its `supportsParameter()` method, which in turn the JUnit5 extension model will use to get the fixture instance.
+in order for `stationSignerMock` parameter to receive the injection, the extensions (`BlockSignerFixture` and `BlockEncryptorFixture`) must be queried in order, until one of them returns `true` from its `supportsParameter()` method, which in turn allow the JUnit5 extension model to use the appropriate class to get the fixture instance.
 After that, the runtime will repeat the check for `blockEncryptorMock` parameter and so on.
-This is something we should keep in mind. It is not that bad, as this is test code but if we do that in a few thousand of tests, it may start becoming noticable.
+This is something we should keep in mind. It is not that bad for performance, and is a good compromise as this is test code, but if we do that in a few thousand of tests, it may start becoming noticable.
 
 ### And a (validating) surprise
 
@@ -400,7 +401,7 @@ I will test it and write about it...
 
 ### Summary
 
-Getting comfortable with your frameworks and libraries may result in using a small subset of its functionality, or not allowing you to experiment in depth with new or not so advertised features. 
+Getting comfortable with your frameworks and libraries may result in using a small subset of their functionality, or not allowing you to experiment in depth with new or not-so-well advertised features. 
 In the case of JUnit5, the extension model gives a huge opportunity to make reusable test fixtures and
 reduce the noise of test setup on every test. 
 
