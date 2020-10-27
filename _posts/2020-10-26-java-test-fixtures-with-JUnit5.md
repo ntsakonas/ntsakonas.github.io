@@ -42,13 +42,11 @@ another piece of info that I had not noticed, more on that later).
 After a few explorations in the documentation, I was wrapping my head around this example
 
 ```java
-
 @ExtendWith(RandomParametersExtension.class)
 @Test
 void test(@Random int i) {
     // ...
 }
-
 ```
 
 I was wondering what exactly this means and how it is used... it looked like depenency injection but I had to try 
@@ -62,6 +60,11 @@ In order to test what I had in mind, I put together some classes with dependenci
 ```java
 import lombok.AllArgsConstructor;
 
+public interface BlockSigner {
+
+    String signDataBlock(String message);
+}
+
 @AllArgsConstructor
 public class RecordChainer {
 
@@ -74,12 +77,6 @@ public class RecordChainer {
         return stationSigner.signDataBlock(recordChain.toString());
     }
 }
-
-public interface BlockSigner {
-
-    String signDataBlock(String message);
-}
-
 ```
 
 The `BlockSigner` implementation is going to be supported by a cryptographic signing algorithm. 
@@ -120,7 +117,6 @@ class RecordChainerTest {
         // Verify that the signer was called with the correct message structure
         Mockito.verify(stationSignerMock, Mockito.times(1)).signDataBlock(eq("previous_block=next_block"));
     }
-    
 ``` 
 
 This is a perfectly acceptable test, because the setup is not that difficult. But this is not always the case,
@@ -145,7 +141,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 
 class RecordChainerTest {
 
-	@Mock
+    @Mock
     BlockSigner stationSignerMock;
 
     @BeforeEach
@@ -167,7 +163,6 @@ class RecordChainerTest {
         // Verify that the signer was called with the correct message structure
         Mockito.verify(stationSignerMock, Mockito.times(1)).signDataBlock(eq("previous_block=next_block"));
     }
-    
 ``` 
 
 still, pretty good test. My personal disagreement on this style is that the test initialisation phase is very disjoint from the test, and it can be re-used by other tests. That means that at a given time _T0_, if _N_ tests
@@ -208,7 +203,6 @@ class RecordChainerRefImplTest {
         // Verify that the signer was called with the correct message structure
         Mockito.verify(stationSignerMock, Mockito.times(1)).signDataBlock(eq("previous_signature=current_signature"));
     }
-    
 ``` 
 
 In this test, we rely on the framework to provide us with an instance of a `BlockSigner` which is expected to 
@@ -251,19 +245,19 @@ public class BlockSignerFixture extends BaseFixture<BlockSigner> {
 then in the following test, `supportsParameter()` must return `true`
 
 ```java
- @ExtendWith(BlockSignerFixture.class)
- @Test
- void verifyFixtureInjection(BlockSigner stationSigner) {
- }
+@ExtendWith(BlockSignerFixture.class)
+@Test
+void verifyFixtureInjection(BlockSigner stationSigner) {
+}
 ```	
 
 but if it was misused like in the following test, `supportsParameter()` must return `false`
 
 ```java
- @ExtendWith(BlockSignerFixture.class)
- @Test
- void verifyFixtureInjection(Random Random) {
- }
+@ExtendWith(BlockSignerFixture.class)
+@Test
+void verifyFixtureInjection(Random Random) {
+}
 ```	
 
 the `abstract protected Class<T> getTargetType();` was added exactly for that purpose, so that the subclass can 
