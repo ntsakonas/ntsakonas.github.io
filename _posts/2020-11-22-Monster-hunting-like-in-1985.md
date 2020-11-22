@@ -4,11 +4,11 @@ author: Nick
 date: 2020-11-22 14:28:00 -0000
 ---
 
-As I was enjoying my usual archive.org browsing, I came across a book that contains type-in games for [Atari](https://en.wikipedia.org/wiki/Atari_8-bit_family), one of the early home computers. Type-in programs is a big part of my childhood and I cannot resist reading them even today!
+As I was enjoying my usual archive.org browsing last night, I came across a book that contains type-in games for [Atari](https://en.wikipedia.org/wiki/Atari_8-bit_family), one of the earliest home computers. Type-in programs are a big part of my childhood and I cannot resist reading them even today!
 
 <!--more-->
 If you were a kid in the 80's it was very common to type-in your programs and games from magazines or books. 
-It was really educational and a cheap way to have hours of fun by playing games without graphics at all.
+It was a really educational process as well as a cheap way to enjoy many hours of playing games without graphics at all.
 The main drawback was that most of the books did not have a single screenshot of the program, so you did not know what kind of game you would be typing for the next few days! I can recall all the dissapointing moments after running the game...
 
 The interesting part of the book I came across is that it contains a game, that I happened to have played 
@@ -20,17 +20,18 @@ You can move east,west, south and north by entering E,W,S,N or O to remain in th
 
 The goal of the game is to remain alive after 10 turns!
 
-I thought it would be fun to follow up with that and replay it (and not only that!). The listing is really short and I
- can type it 20x faster that when I was 15!
+I thought it would be fun to follow up with that and play it once more (and not only that!). The listing is really short and I
+ can now type it 20x faster that when I was 11!
 
-The reason I am doing this is because the book has a few challenges for the reader in the form of suggested modifications,
-which were unknown to me when I found the listing of the ported game listing in a home computer magazine. 
-That has quickly triggered a few ideas I would like to try, definitely _not_ the same I would have tried back then _if_ I had seen the challenges.
+The book has a few challenges for the reader in the form of suggested modifications,
+which were unknown to me when I first came across the listing in a home computer magazine. 
+Coming across the game after all these years, triggered a few ideas I would like to try, definitely _not_ the same I would have tried back then _if_ I had seen the challenges.
 
 As a tribute to the era and the machine, I will keep it "BASIC" and not write fancy code, just like in 1979!
 
 BASIC has global variables, functions and subroutines which will be emulated by members and methods if required. 
-No object oriented code, just _int_, _float_, _string_ and _array_. The only exceptions will be when BASIC specific functions need to be emulated (as required).
+No object oriented code, just _int_, _float_, and _string_. The only exceptions will be when BASIC specific functions need to be emulated (as required).
+At least I will try to keep it retro!
 
 
 ### Let's have fun!
@@ -99,16 +100,20 @@ M0NSTER CHASE PROGRAM
  540 END                                                                         
 ```
 
-The program does not need a lot of introductions or explanations, but 2 points need a few words.
+The program does not need a lot of introductions or explanations, it is pretty BASIC, but 2 points need a few words.
 
 The monster can move diagonally according to which direction it sees us, but it
 does not coming directly to us, as it chooses at random its next movement that wil bring it closer to us. 
+This makes the game interesting and dynamic and you cannot end up with a choreography, thus, the endless fun with such a simple game!
+
 The monster's detection of our direction is saved in variable `D` and it is translated as in the following picture
 
 ![]({{ site.url }}/images/monster_chase_monster_directions.svg)
 
+if the player is located to the East of the monster `D` becomes 1. if the player is NorthEast of the monster `D` becomes 2 etc. 
 
-When porting old programs, functions like `RND()` or `ROUND()` must be  looked up in the manual so that the same behaviour is duplicated. 
+
+When porting old programs, functions like `RND()` or `ROUND()` must be  looked up in the manual so that the same behaviour is replicated. 
 On Atari BASIC, according to the [manual](http://www.atarimania.com/documents/Atari-Basic-Reference-Manual-Rev-C.pdf), the `RND()` works as follows:
 
 ```
@@ -136,17 +141,16 @@ so in the original listing, in line
 380 D=D+INT(3*RND(1)-l)
 ```
 
-we get back 0,1,2 which is adjusted to -1,0,1
+the possible values from RND are 0,1,2 which are adjusted to -1,0,1
 
 so let's quickly port it to Java and play!
 
 ### Java monster chasing 
 
-The program is ported to Java with minimal additions , mostly to support the equivalent of GOTO's and the fact that
-the BASIC program can re-RUN it self (good old times!).
+The program is ported to Java maintaining the exact structure and variable names, with minimal additions mostly 
+to support the equivalent of GOTO's and the fact that the BASIC program can re-RUN it self (good old times!).
 
-Here is the Java version, with a coding approach that throws everything we know about software engineering out of the window, 
-but let's assume we are in 1979!
+Here is the Java version, which is very "ugly" by today's software engineering standards, but let's enjoy its simplicity and assume we are in 1979!
 
 ```java
 public class MonsterChaseOriginal {
@@ -243,6 +247,7 @@ public class MonsterChaseOriginal {
 ```
 
 the project (along with all future additions) can be found in [GitHub](https://github.com/ntsakonas/MonsterChase) as an Intellij project.
+The code will be used as the starting point for future modifications. 
 
 
 ### Run Run Run!!!!
@@ -354,9 +359,11 @@ YOU SURVIVED!
 PLAY AGAIN 
 ```
 
+the 5x5 grid is still as hard as I remember it, but a bag of crisps as the prize for the highest score was a strong motivation to improve your playing!
+
 ### Challenges
 
-The reason that a simple game like this can still be enoyable and interesting even if it does not blink a single pixel on the screen, 
+The reason that a simple game like this can still be enoyable and interesting today even if it does not blink a single pixel on the screen, 
 is that the book challenges you to modify the program and make it more interesting. 
 
 The book contains the following challenges
@@ -371,7 +378,7 @@ Major:
  3. Have the monster fall in quicksand. 
  4. Require food in order to maintain energy.
 
- the _Minor_ ones are really easy and I will not bother, but I am really excited about the _Major_ ones as they have triggered some crazy ideas!
+the _Minor_ ones are really easy and I will not bother, but I am really excited about the _Major_ ones as they have triggered some crazy ideas!
 
 I am already planning them!
 
