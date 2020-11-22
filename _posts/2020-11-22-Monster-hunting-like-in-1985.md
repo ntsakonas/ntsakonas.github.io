@@ -25,7 +25,7 @@ I thought it would be fun to follow up with that and replay it (and not only tha
 
 The reason I am doing this is because the book has a few challenges for the reader in the form of suggested modifications,
 which were unknown to me when I found the listing of the ported game listing in a home computer magazine. 
-That has quickly triggered a few ideas I would like to try, definitely _not_ the same I would have tried back then _if_ I had seen the cahllenges.
+That has quickly triggered a few ideas I would like to try, definitely _not_ the same I would have tried back then _if_ I had seen the challenges.
 
 As a tribute to the era and the machine, I will keep it "BASIC" and not write fancy code, just like in 1979!
 
@@ -105,7 +105,7 @@ The monster can move diagonally according to which direction it sees us, but it
 does not coming directly to us, as it chooses at random its next movement that wil bring it closer to us. 
 The monster's detection of our direction is saved in variable `D` and it is translated as in the following picture
 
-![Image](images/monster_chase/_monster_directions.svg)
+![]({{ site.url }}/images/monster_chase/_monster_directions.svg)
 
 
 When porting old programs, functions like `RND()` or `ROUND()` must be  looked up in the manual so that the same behaviour is duplicated. 
@@ -133,7 +133,7 @@ The following is a simple routine that returns a random number between 0 and 999
 so in the original listing, in line 
 
 ```
-380 D=D+INT(3*RND(l)-l)
+380 D=D+INT(3*RND(1)-l)
 ```
 
 we get back 0,1,2 which is adjusted to -1,0,1
@@ -360,6 +360,7 @@ The reason that a simple game like this can still be enoyable and interesting ev
 is that the book challenges you to modify the program and make it more interesting. 
 
 The book contains the following challenges
+
 Minor:
  1. Grid size 
  2. Turns to win 
