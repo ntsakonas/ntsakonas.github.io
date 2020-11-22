@@ -105,11 +105,7 @@ The monster can move diagonally according to which direction it sees us, but it
 does not coming directly to us, as it chooses at random its next movement that wil bring it closer to us. 
 The monster's detection of our direction is saved in variable `D` and it is translated as in the following picture
 
-![]({{ site.url }}/images/monster_chase_monster_directions.svg)
-
-
-and also images
-![]({{ site.url }}/images/sample.svg)
+![]({{ site.url }}/images/monster_chase_monster_directions.svg | width=400)
 
 
 When porting old programs, functions like `RND()` or `ROUND()` must be  looked up in the manual so that the same behaviour is duplicated. 
