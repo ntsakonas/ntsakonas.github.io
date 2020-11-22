@@ -101,7 +101,7 @@ The monster's detection of our direction is saved in variable `D` and it is tran
 ![Image](images/monster_chase/_monster_directions.svg)
 
 
-When porting old programs, functions like `RND()`, `CEIL()`, `ROUND()` must be  looked up in the manual so that the same behaviour is duplicated. 
+When porting old programs, functions like `RND()` or `ROUND()` must be  looked up in the manual so that the same behaviour is duplicated. 
 On Atari BASIC, according to the [manual](http://www.atarimania.com/documents/Atari-Basic-Reference-Manual-Rev-C.pdf), the `RND()` works as follows:
 
 ```
@@ -236,87 +236,136 @@ public class MonsterChaseOriginal {
 the project can be found in [GitHub](https://github.com/ntsakonas/MonsterChase)
 
 
-### Header
+### Run Run Run!!!!
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-
-
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/ntsakonas/ntsakonas.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
-
-### Checking code and images
-
-```java
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World v1.0");
-    }
-}    
+Here is the first successful escape from the monster (yeah, I got eaten many times!)
 
 ```
+        M       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       Y
 
-and also without specific language 
 
+
+MOVE NUMBER 1
+DIRECTION (NESWO) W
+        .       M       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       Y       .
+
+
+
+MOVE NUMBER 2
+DIRECTION (NESWO) W
+        .       .       .       .       .
+        .       .       M       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       Y       .       .
+
+
+
+MOVE NUMBER 3
+DIRECTION (NESWO) W
+        .       .       .       .       .
+        .       .       .       .       .
+        .       M       .       .       .
+        .       .       .       .       .
+        .       Y       .       .       .
+
+
+
+MOVE NUMBER 4
+DIRECTION (NESWO) E
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       M       .       .
+        .       .       .       .       .
+        .       .       Y       .       .
+
+
+
+MOVE NUMBER 5
+DIRECTION (NESWO) W
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       M       .       .
+        .       Y       .       .       .
+
+
+
+MOVE NUMBER 6
+DIRECTION (NESWO) W
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        Y       .       M       .       .
+
+
+
+MOVE NUMBER 7
+DIRECTION (NESWO) N
+        .       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+        Y       M       .       .       .
+        .       .       .       .       .
+
+
+
+MOVE NUMBER 8
+DIRECTION (NESWO) N
+        .       .       .       .       .
+        .       .       .       .       .
+        Y       .       .       .       .
+        M       .       .       .       .
+        .       .       .       .       .
+
+
+
+MOVE NUMBER 9
+DIRECTION (NESWO) N
+        .       .       .       .       .
+        Y       .       .       .       .
+        M       .       .       .       .
+        .       .       .       .       .
+        .       .       .       .       .
+
+
+
+MOVE NUMBER 10
+DIRECTION (NESWO) N
+YOU SURVIVED!
+PLAY AGAIN 
 ```
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
-public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello World v1.0");
-    }
-}    
+### Challenges
 
-```
+The reason that a simple game like this can still be interesting, is that the book challenges you to modify the program
+and make it more interesting,and also if you were a kid in the early 80's learn to program.
 
-and also assembly
-```asm
-        LD A,#20
-LOOP:   ADD 3
-        JMP LOOP
-80 20   MOV BC,[HL+3]
-9F 32   ADD BC,32
-90      NOP
-```
+The book contains the following challenges
+Minor:
+ 1. Grid size 
+ 2. Turns to win 
+
+Major: 
+ 1. Have more than one monster. 
+ 2. Chase a little monster while a  big monster tries to get you. 
+ 3. Have the monster fall in quicksand. 
+ 4. Require food in order to maintain energy.
+
+ the _Minor_ ones are really easy and I will not bother, but I am really excited about the _Major_ ones as they have triggered some crasy ideas!
 
 
+## Rating of this task
 
-and also images
-![]({{ site.url }}/images/sample.svg)
-
+- Challenge: 3/10
+- Satisfaction :10/10
+- Funtime: 10/10
