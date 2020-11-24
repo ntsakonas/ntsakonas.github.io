@@ -235,7 +235,7 @@ public class MonsterChaseOriginal {
             }
             // this is an added check as we do no have GOTO's
             // this is line 510 modified
-            if (T == 10)
+            if (T > 10)
                 System.out.println("YOU SURVIVED!");
             System.out.print("PLAY AGAIN ");
             Y$ = INPUT.nextLine().charAt(0);
